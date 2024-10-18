@@ -52,4 +52,8 @@ public class Evento {
     public List <Participante> getParticipantes(){
         return participantes;
     }
+
+    public boolean verificarLotacao() {
+        return participantes.size() >= local.getCapacidade();
+    }
 }
