@@ -226,6 +226,10 @@ public class EventoApp extends JFrame {
 
             Evento eventoSelecionado = eventosList.stream().filter(e -> e.getNome().equals(nomeEventoSelecionado)).findFirst().orElse(null);
             if (eventoSelecionado != null) {
+                if(eventoSelecionado.verificarLotacao()){
+                    JOptionPane.showMessageDialog(this, "Não foi possível cadastrar participante! Evento lotado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    displayArea.append("Não foi possível cadastrar participante! Evento lotado: " + nomeEventoSelecionado + "\n");
+                }else{
                 Participante participante = new Participante(nome, idade, cpf, email, tipoFormatado);
                 eventoSelecionado.cadastrarParticipante(participante);
 
@@ -235,6 +239,7 @@ public class EventoApp extends JFrame {
                 limparCamposParticipante();
                 atualizarExibicaoParticipantes();
             }
+        }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar participante. Verifique os dados!", "Erro", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
